@@ -1,0 +1,19 @@
+{
+    "name" : "livejsdoc",
+    "version" : "0.1.0",
+    "description" : "Live regeneration of JSDoc documentations",
+    "engines": {
+        "node": ">=0.10"
+    },
+    "dependencies" : {
+    	"open" : "*"
+    },
+    "bin": {
+        "livejsdoc": "./livejsdoc.js"
+    },
+    "directories": {},
+    "author" : {
+    	"name" : "Krisztian Balazs Szaniszlo",
+    	"email" : "krisztian.szaniszlo@gmail.com"
+    }
+}
