@@ -19,3 +19,12 @@ Afterwards, you can install livejsdoc:
 	npm install -g livejsdoc
 
 The list of options can be printed using the 'livejsdoc -h' command. From that point onwards, it's quite self-explanatory.
+
+Mac OS X notes
+--------------
+
+On OS X the symlink points directly to livejsdco.js which contains the shebang line (!#/usr/bin/env node) but is not taken into consideration. You can execute livejsdco as follows:
+
+        node /usr/local/bin/livejsdoc <opts>
+
+Probably my bad :) I really should spend some time in finding out how to instruct npm to generate better symlinks and startup scripts.

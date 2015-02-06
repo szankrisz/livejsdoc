@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Import modules.
-console.log("LiveJSDoc v0.0.1\n");
+console.log("LiveJSDoc v0.1.0\n");
 var fs = require("fs"),
     util = require("util"),
     path = require("path"),
