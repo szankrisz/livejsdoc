@@ -23,7 +23,7 @@ The list of options can be printed using the 'livejsdoc -h' command. From that p
 Mac OS X notes
 --------------
 
-On OS X the symlink points directly to livejsdco.js which contains the shebang line (!#/usr/bin/env node) but is not taken into consideration. You can execute livejsdco as follows:
+On OS X the symlink points directly to 'livejsdoc.js' which contains the shebang line (!#/usr/bin/env node) but is not taken into consideration. You can execute livejsdco as follows:
 
         node /usr/local/bin/livejsdoc <opts>
 
