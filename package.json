@@ -15,5 +15,6 @@
     "author" : {
     	"name" : "Krisztian Balazs Szaniszlo",
     	"email" : "krisztian.szaniszlo@gmail.com"
-    }
+    },
+    "homepage": "https://github.com/szankrisz/livejsdoc"
 }
