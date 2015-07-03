@@ -179,8 +179,11 @@ function generate() {
 
 		console.log("[***] Generating JSDoc to output (mode: " + getModeStr() + "). Files: \n\t" + results.join("\n\t"));
 		exec("jsdoc " + (!publicMode ? "-p " : "") + "-d \"" + out_dir + "\" " + files.join(" "), function(err, out, code) {
-			if (err)
+			if (err) {
 				console.log("[***] Error executing JSDoc. Probably there was a syntax error. Documentation was not regenerated. If the problem persists make sure you have installed JSDoc properly (using 'npm install -g jsdoc')");
+				console.log("[***] Exit code: " + code);
+				console.log("[***] Error description: " + err);
+			}
 		});
 	});
 }
