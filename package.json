@@ -1,6 +1,6 @@
 {
     "name" : "livejsdoc",
-    "version" : "0.1.0",
+    "version" : "0.1.1",
     "description" : "Live regeneration of JSDoc documentations",
     "engines": {
         "node": ">=0.10"
