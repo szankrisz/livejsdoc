@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Import modules.
-console.log("LiveJSDoc v0.2.0\n");
+console.log("LiveJSDoc v0.2.1\n");
 var fs = require("fs"),
     util = require("util"),
     path = require("path"),
@@ -20,7 +20,8 @@ function help() {
     console.log("\t-c2|--cordova-dir           Generates a combined JSDoc of cordova plugins found within the current directory. Works as if documentations were generated ");
     console.log("\t                            using 'livejsdoc -c' and then merged into one.");
     console.log("\t-o|--output <output_dir>    The output directory to put the generated JSDoc into. If -c or -c2 is declared then it defaults to ./target/jsdoc");
-    console.log("\t-e|--exclude <files>        List of files to exclude. Each file can be a relative path within the input directory. Specify this as the last argument.");
+    console.log("\t-e|--exclude <patterns>     JS regex patterns to exclude. These are applied on the relative paths of files within the input directory.");
+    console.log("\t                            Patterns should use forward slash as directory separator and should never start with a slash.");
     console.log("");
 }
 
@@ -111,10 +112,15 @@ for (var i = 1; i < process.argv.length; i++) {
     } else if (within_arg == "output") {
         out_dir = path.resolve(arg);
         within_arg = undefined;
-    } else if (within_arg == "exclude")
-        in_dirs.forEach(function(in_dir) {
-            exclude_files.push(path.resolve(in_dir + "/" + arg));
-        });
+    } else if (within_arg == "exclude") {
+        try {
+            exclude_files.push(new RegExp(arg));
+        } catch (e) {
+            console.log("[***] Invalid exclude regular expression: " + arg);
+            console.log("      " + e);
+            process.exit(1);
+        }
+    }
 }
 
 // Check if we've got everything.
@@ -132,8 +138,9 @@ in_dirs.forEach(function(in_dir) {
     console.log("Input directory: " + in_dir);
 });
 console.log("Output directory: " + out_dir);
-if (exclude_files.length > 0)
-    console.log("Excluding files: \n\t" + exclude_files.join("\n\t"));
+exclude_files.forEach(function(regex) {
+    console.log("Excluding files matching pattern: " + regex.source);
+});
 
 // Walks through a directory recursively and reports the set of JS files via the 'done' callback.
 function isExcluded(file) {
@@ -142,7 +149,8 @@ function isExcluded(file) {
 
     return exclude_files.some(function(exclude_file) {
         return in_dirs.some(function(in_dir) {
-            if (path.resolve(in_dir + "/" + exclude_file) == file)
+            var testedPath = path.relative(in_dir, file).replace(/\\/g, '/');
+            if (exclude_file.test(testedPath))
                 return true;
         });
     });
